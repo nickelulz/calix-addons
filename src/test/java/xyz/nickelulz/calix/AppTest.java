@@ -1,4 +1,4 @@
-package xyz.nickelulz;
+package xyz.nickelulz.calix;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

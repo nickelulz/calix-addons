@@ -1,4 +1,4 @@
-package xyz.nickelulz;
+package xyz.nickelulz.calix;
 
 /**
  * Hello world!
