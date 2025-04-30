@@ -1,0 +1,10 @@
+name: Calix
+version: 1.0
+main: xyz.nickelulz.calix.Calix
+api-version: '1.21.5'
+
+commands:
+  test:
+    description: 'Test!'
+    usage: '/test'
+    permission: calix.test

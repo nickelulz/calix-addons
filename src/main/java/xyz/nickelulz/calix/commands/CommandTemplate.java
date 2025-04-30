@@ -1,0 +1,32 @@
+package xyz.nickelulz.calix.commands;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.defaults.BukkitCommand;
+import org.bukkit.entity.Player;
+
+public abstract class CommandTemplate implements CommandExecutor
+{
+    public abstract boolean onCommand(CommandSender sender, Command command, String label, String[] args);
+
+    public void error(CommandSender sender, String err, String syntax) {
+	sender.sendMessage(ChatColor.RED + err);
+	sender.sendMessage(ChatColor.GRAY + syntax);
+    }
+    
+    public void error(CommandSender sender, String err) {
+	sender.sendMessage(ChatColor.RED + err);
+    }
+    
+    public void reply(CommandSender sender, String... messages) {
+	for (String message: messages)
+	    sender.sendMessage(ChatColor.WHITE + message);
+    }
+    
+    public void success(CommandSender sender, String message) {
+	sender.sendMessage(ChatColor.GREEN + message);
+    }
+}
