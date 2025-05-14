@@ -14,8 +14,8 @@ public final class Calix extends JavaPlugin {
   public void onEnable() 
   {
     log = getLogger();
-    getCommand("test").setExecutor(new TestCommand());
-    log.info("We have been enabled!");
+    this.getCommand("test").setExecutor(new TestCommand());
+    log.info("We have been enabled, and test command has been registered!");
   }
 
   @Override
