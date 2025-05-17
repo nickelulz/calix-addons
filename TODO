@@ -1,0 +1,81 @@
+TODO
+
+Datatypes
+
+[ ] Player Wrapper Class
+    - Kills Map
+    - Enemies List
+    - Contracts/Bounties Completed
+    - Cooldown
+[ ] Hit (Abstract Class)
+    - Target
+    - Placer
+    - End Time
+    - Price
+    [ ] Bounty
+    [ ] Contract
+      	- Contractor
+	- accepted?
+[ ] Duel
+    - Involved Players
+    - End time
+[x] CommandTemplate (Abstract Class)
+[x] CommandManager
+[ ] Team
+    - List of Members
+    - Team Leader
+    - Enemy Teams List
+[ ] War
+    - Involved Teams List
+    - End Time
+
+Commands
+
+[ ] /contract
+    [ ] place <target> <price>
+    [ ] retract <target>
+    [ ] accept <placer>
+    [ ] deny <placer>
+[ ] /bounty
+    [ ] place <target> <price> <optional: expiry date/time>
+    [ ] retract <target>
+[ ] /lookup <name>
+    - query whitepages database
+[ ] /team
+    [ ] create <team name>
+    [ ] setleader <player name>
+    [ ] join
+    [ ] invite
+    [ ] leave
+[ ] /war
+    [ ] declare <team> <optional: end date/time>
+    [ ] treaty
+[ ] /enemy
+    [ ] add <player name>
+    [ ] remove <player name>
+
+Et Cetera
+
+[ ] Abstract Database (SQL Interaction)
+    [ ] Contract Database
+    [ ] Bounty Databse
+    [ ] Duel Database
+    [ ] Player Database
+[ ] Whitepages Database (YML)
+
+Root Class
+
+[ ] Listener for kills (initiate end of Contracts and Bounties)
+[ ] Player autoregistration (on join)
+
+TODO ORDER
+
+1. Command Template
+2. Command Manager
+3. Player Wrapper Class
+4. SQL Database Boilerplate
+5. Whitepages Database
+6. Whitepages Command
+7. Boilerplate for all Datatypes
+8. Boilerplate for all Commands
+9. Filling in each, hits..

@@ -10,6 +10,22 @@ import org.bukkit.entity.Player;
 
 public abstract class CommandTemplate extends BukkitCommand implements CommandExecutor
 {
+    private final int minArguments, maxArguments;
+    private final boolean playerOnly;
+    private final String description;
+
+    protected abstract String getSpecializedSyntax(String mode);
+    protected abstract void sendSyntax(CommandSender sender);
+
+    public CommandBase(String command, int minArguments, int maxArguments, boolean playerOnly, String description) {
+        super(command);
+
+        this.minArguments = minArguments;
+        this.maxArguments = maxArguments;
+        this.playerOnly = playerOnly;
+        this.description = description;
+    }
+    
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
         String permission = getPermission();
@@ -17,11 +33,18 @@ public abstract class CommandTemplate extends BukkitCommand implements CommandEx
             sender.sendMessage(ChatColor.GRAY + "You do not have permission to use this command.");
             return true;
         }
+
+	if (!onCommand(sender, args)) {
+	    sendSyntax(sender);
+	}
+
+	return true;
     }
 
-    protected abstract String getSpecializedSyntax(String mode);
-
-    // protected void sendSyntax(CommandSender sender)
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	this.onCommand(sender, args);
+    }
     
     protected void error(CommandSender sender, String err) {
         sender.sendMessage(ChatColor.RED + err);
