@@ -5,17 +5,3 @@ author: nickelulz
 website: https://github.com/nickelulz/calix-addons
 main: xyz.nickelulz.calix.Calix
 api-version: '1.21.5'
-
-commands:
-  test:
-    description: "Test!"
-    usage: "Usage: /test"
-    permission: calix.test
-  war:
-    description: "Allows you to declare (begin) a war, call for a ceasefire in a war, or end an active war. Multiple wars cannot occur simultaneously!"
-    usage: "Usage: /war <declare/ceasefire/end>"
-    permission: calix.war
-  enemy:
-    description: "Allows you to publicly state who your enemies are, by adding or removing someone from your enemies list. Your enemies list is essentially a kill-on-sight list."
-    usage: "Usage: /enemy <add/remove> <name>"
-    permission: calix.enemy

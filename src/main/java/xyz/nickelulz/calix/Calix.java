@@ -12,14 +12,14 @@ public final class Calix extends JavaPlugin {
     
     @Override
     public void onEnable() 
-    {   
+    {	
 	log = getLogger();
 	log.info("Enabling Calix...")
     
-	getServer.getPluginManager().registerEvents(this, this);
+	this.getServer.getPluginManager().registerEvents(this, this);
 	this.saveDefaultConfig();
     
-	CommandManager.initialize();
+	CommandManager.initialize(this);
     
 	log.info("Calix has been enabled!");
     }

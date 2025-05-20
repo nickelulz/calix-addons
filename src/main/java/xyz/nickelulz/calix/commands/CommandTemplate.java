@@ -8,42 +8,68 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
-public abstract class CommandTemplate extends BukkitCommand implements CommandExecutor
+import xyz.nickelulz.calix.Calix;
+
+public abstract class CommandTemplate extends BukkitCommand
 {
-    private final int minArguments, maxArguments;
-    private final boolean playerOnly;
-    private final String description;
+    private Calix pluginInstance;
+    
+    private int minArguments, maxArguments;
+    private boolean playerOnly;
+    private String description;
 
-    protected abstract String getSpecializedSyntax(String mode);
-    protected abstract void sendSyntax(CommandSender sender);
+    protected abstract String  getSpecializedSyntax(String mode);
+    protected abstract void    sendSyntax(CommandSender sender);
+    public    abstract boolean commandCall(CommandSender sender, String[] args);
 
-    public CommandBase(String command, int minArguments, int maxArguments, boolean playerOnly, String description) {
+    public CommandTemplate(Calix instance, String command, int minArguments, int maxArguments,
+			   boolean playerOnly, String description, String permission)
+    {
         super(command);
 
+	this.pluginInstance = instance;
         this.minArguments = minArguments;
         this.maxArguments = maxArguments;
         this.playerOnly = playerOnly;
         this.description = description;
+
+	if (permission instanceof String) {
+	    this.setPermission(permission);
+	}
+    }
+
+    protected static enum CommandReturnType {
+	SUCCESS, ERR_SYNTAX, ERR_PERMISSION,
+	ERR_ARGUMENT, ERR_MISUSE, ERR_STATE, ERR_OTHER;
     }
     
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        String permission = getPermission();
+	// Mismatched argument length
+	if (args.length < minArguments || (args.length > maxArguments && maxArguments != -1)) {
+            sendSyntax(sender);
+            return true;
+        }
+
+	// Invalid Permissions
+        String permission = this.getPermission();
         if (permission != null && !sender.hasPermission(permission)) {
             sender.sendMessage(ChatColor.GRAY + "You do not have permission to use this command.");
             return true;
         }
 
-	if (!onCommand(sender, args)) {
+	// Command is Player only
+	if (playerOnly && !(sender instanceof Player)) {
+            sender.sendMessage(ChatColor.GRAY + "Only plays can use this command.");
+            return true;
+        }
+
+	// Attempt running the command
+	commandResult = commandCall(sender, args);
+	if (commandResult == CommandReturnType.ERR_SYNTAX)
 	    sendSyntax(sender);
-	}
-
+	
 	return true;
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-	this.onCommand(sender, args);
     }
     
     protected void error(CommandSender sender, String err) {

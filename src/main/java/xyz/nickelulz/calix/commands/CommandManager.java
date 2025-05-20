@@ -3,6 +3,8 @@ package xyz.nickelulz.calix.commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.help.GenericCommandHelpTopic;
+import org.bukkit.help.HelpMap;
 import org.bukkit.plugin.SimplePluginManager;
 
 public class CommandManager
@@ -25,12 +27,16 @@ public class CommandManager
 
     public static void registerCommand(String commandLabel, Command command) {
         CommandMap commandMap = getCommandMap();
-        if (commandMap != null) {
+
+	if (commandMap != null) {
             commandMap.register(commandLabel, command);
         }
+	
+        HelpMap helpMap = Bukkit.getHelpMap();
+        helpMap.addTopic(new GenericCommandHelpTopic(command));
     }
 
-    public static void initialize() {
+    public static void initialize(Calix instance) {
 	/* TODO: Initialize All Commands */
     }
 }
