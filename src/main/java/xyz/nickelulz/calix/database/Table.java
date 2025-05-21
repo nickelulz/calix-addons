@@ -1,45 +1,10 @@
-package xyz.nickelulz.calix.datatypes;
+package xyz.nickelulz.calix.database;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.DriverManager;
-import xyz.nickelulz.calix.datatypes.Database;
+import xyz.nickelulz.calix.database.SQLDatabaseManager;
 
-public class SQLDatabaseManager
-{
-    private final String url;
-    private final String user;
-    private final String password;
-
-    private Connection connection;
+public class Table<T> {
+    private final String tableName;
     
-    public SQLDatabaseManager(String url, String user, String password)
-    {
-	this.url = url;
-	this.user = user;
-	this.password = password;
-    }
-
-    /**
-     * Connect to the SQL Database specified at <code>url</code> with credentials <code>user</code> and <code>password</code>.
-     */
-    public void connect() throws SQLException
-    {
-	if (connection == null || connection.isClosed()) {
-	    connection = DriverManager.getConnection(url, user, password);
-	}
-    }
-
-    /**
-     * Disconnect from the SQL Database specified at <code>url</code>.
-     */
-    public void disconnect() throws SQLException
-    {
-	if (connection != null && !connection.isClosed()) {
-	    connection.close();
-	}
-    }
-
     /**
      * Writes objects to the SQL database.
      *
