@@ -1,0 +1,10 @@
+package xyz.nickelulz.calix;
+
+import xyz.nickelulz.calix.Calix;
+
+public class Config {
+    public Config(Calix instance)
+    {
+        
+    }
+}

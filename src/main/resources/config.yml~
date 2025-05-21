@@ -1,0 +1,13 @@
+server:
+  name='Your Minecraft Server!'
+  address='example.com'
+
+hits:
+  # The minimum price for any standard hit, such as a
+  # contract or a bounty.
+  minimum-price=8
+
+  # The warning message sent out to a target both
+  # immediately upon join and whenever the hit is
+  # placed.
+  target-warning-message='A hit is currently on your head. Watch out!'

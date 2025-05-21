@@ -1,0 +1,64 @@
+server:
+  name: 'Your Minecraft Server!'
+  address: 'example.com'
+
+database:
+  # The local MySQL data storage file location for
+  # the entire plugin, storing all tables of data.
+  filename: 'data.db'
+
+  # The username and password to setup and access
+  # the database with.
+  username: 'default'
+  password: 'default'
+  
+hits:
+  # The minimum price for any standard hit, such as a
+  # contract or a bounty, measured in Diamonds.
+  #
+  # DEFAULT: 8 (diamonds)
+  minimum-price: 8
+
+  # The warning message sent out to a target both
+  # immediately upon join and whenever the hit is
+  # placed.
+  target-warning-message: 'A hit is currently on your head. Watch out!'
+
+cooldowns:
+  # The cooldown for placing hits of both kinds (both
+  # bounties and contracts), measured in minutes.
+  #
+  # DEFAULT: 30 (minutes)
+  placing-hits-cooldown: 30
+
+  # The cooldown for being able to accept/perform any
+  # contracts, measured in minutes.
+  #
+  # DEFAULT: 30 (minutes)
+  accepting-contracts-cooldown: 30
+
+  # The cooldown for being the target of any hit of
+  # any kind (essentially a peaceful-only grace period),
+  # measured in minutes.
+  #
+  # DEFAULT: 120 (minutes, or 2 hours)
+  target-cooldown: 120
+
+  # The cooldown for an entire team to be able to
+  # participate in an officially-declared war, measured
+  # in hours.
+  #
+  # DEFAULT: 36 (hours, or 3/2 days)
+  war-cooldown: 36
+
+# Error Messages
+error:
+  contractor-not-found:
+  target-not-found:
+  hirer-not-found:
+  player-not-found:
+  invalid-amount:
+  price-too-low:
+  target-is-busy:
+  user-is-busy:
+  

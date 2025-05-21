@@ -28,7 +28,7 @@ public class CommandManager
     public static void registerCommand(String commandLabel, Command command) {
         CommandMap commandMap = getCommandMap();
 
-	if (commandMap != null) {
+        if (commandMap != null) {
             commandMap.register(commandLabel, command);
         }
 	
@@ -37,6 +37,6 @@ public class CommandManager
     }
 
     public static void initialize(Calix instance) {
-	/* TODO: Initialize All Commands */
+        /* TODO: Initialize All Commands */
     }
 }
