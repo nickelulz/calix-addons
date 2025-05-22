@@ -39,7 +39,7 @@ public class Config {
     public final String PRICE_TOO_HIGH;
     public final String TARGET_IS_BUSY;
     public final String USER_BUSY;
-    public final String TOO_MANY_HITS;
+
     public final String CONTRACTOR_UNDER_COOLDOWN;
     public final String HIRER_UNDER_COOLDOWN;
     public final String TARGET_UNDER_COOLDOWN;
@@ -85,7 +85,7 @@ public class Config {
         PRICE_TOO_LOW             = config.getString("error.price-too-low");
         TARGET_IS_BUSY            = config.getString("error.target-is-busy");
         USER_IS_BUSY              = config.getString("error.user-is-busy");
-        TOO_MANY_HITS             = config.getString("error.too-many-hits");
+
         CONTRACTOR_UNDER_COOLDOWN = config.getString("error.contractor-under-cooldown");
         HIRER_UNDER_COOLDOWN      = config.getString("error.hirer-under-cooldown");
         TARGET_UNDER_COOLDOWN     = config.getString("error.target-under-cooldown");

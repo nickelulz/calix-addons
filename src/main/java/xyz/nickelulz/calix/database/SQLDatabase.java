@@ -12,11 +12,13 @@ public class SQLDatabase
 
     private Connection connection;
     
-    public SQLDatabaseManager(String url, String user, String password)
+    public SQLDatabaseManager(String url, String user, String password) throws SQLException
     {
-	this.url = url;
+	this.url = String.format("jdbc:sqlite:%s", url);
 	this.user = user;
 	this.password = password;
+
+	connect();
     }
 
     /**

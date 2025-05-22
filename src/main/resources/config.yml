@@ -53,12 +53,66 @@ cooldowns:
 
 # Error Messages
 error:
-  contractor-not-found:
-  target-not-found:
-  hirer-not-found:
-  player-not-found:
-  invalid-amount:
-  price-too-low:
-  target-is-busy:
-  user-is-busy:
+  # The message to send when a selected contractor (the
+  # person carrying out the hit) cannot be found presently
+  # online to send the contract request.
+  contractor-not-found: "The contractor you selected was not found in the registry. Either they are not a registered user, or you misspelled their name."
+
+  # The message to send when a selected target of the hit
+  # cannot be found presently online to send the contract
+  # request
+  target-not-found: "The target you have selected was not found in the registry. Either they are not a registered user, or you spelled their name incorrectly."
+
+  # The message to send when a selected contract hirer (the
+  # person that placed a contract intended to be accepted/
+  # denied) cannot be found within the contractor's pending
+  # hits database.
+  hirer-not-found: "The hirer you have selected was not found in the registry. Either they are not a registered user, or you spelled their name incorrectly."
+
+  # The message to send when a player (just in general) was
+  # not found from a search of all players, online or offline.
+  player-not-found: "The player you have selected was not found. Perhaps you have misspelled their name."
+
+  # The message to send when a numeric amount entered is not
+  # an integer (all commands operate strictly in integers).
+  invalid-amount: "The amount has to be an integer."
+
+  # The message to send when a listed hit price is less than
+  # the minimum hit price.
+  price-too-low: "That price is too low!"
+
+  # The message to send when a target currently has an active
+  # hit placed on them.
+  target-is-busy: "Your target already has an active hit out on them."
+
+  # The message to send when the placer of a hit already has
+  # an active hit placed on another player.
+  user-is-busy: "You already have placed a hit! You cannot have more than one of them at once."
+
+  # The message to send when a contractor designated for a hit
+  # is presently under a contracting cooldown (so they cannot
+  # undergo a contract).
+  contractor-under-cooldown: "The contractor you selected is currently under a cooldown. Pick another contractor or wait until their cooldown has finished."
+
+  # The message to send when the hirer of a hit is presently
+  # under a cooldown, so they cannot place a hit on anybody.
+  hirer-under-cooldown: "You are currently under a cooldown. Wait until this cooldown has completed to place another hit."
+
+  # The message to send when the target of a hit is presently
+  # under a cooldown, so they cannot have any hits placed on
+  # them. 
+  target-under-cooldown: "The target you have selected is currently under a cooldown. Wait until this cooldown has finished to place a hit on this person."
+
+  # The message to send when the hirer of a hit is the placer
+  # of the hit.
+  hirer-is-target: "You cannot place a hit on yourself."
+
+  # The message to send when the contractor of the hit is the
+  # target of the hit.
+  contractor-is-target: "The contractor of a hit cannot be the target of the hit."
+
+  # The message to send when the hirer of a contract is the
+  # contractor of the hit (fundamental rule is that one cannot
+  # execute their own hits).
+  hirer-is-contractor: "You cannot contract yourself to perform a hit."
   

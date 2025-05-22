@@ -22,7 +22,7 @@ public final class Calix extends JavaPlugin {
      * not saved to the hard disk due to their short-term
      * nature.
      */
-    private List<Duel> duels;
+    private Set<Duel> duels;
     
     @Override
     public void onEnable() 
@@ -31,9 +31,16 @@ public final class Calix extends JavaPlugin {
         log.info("Enabling Calix...");
 
         Config config = new Config(this);
-        
-        // Load Databases
-        SQLDatabase db = new SQLDatabase()
+        SQLDatabase db = new SQLDatabase(config.DATABASE_FILENAME);
+
+	// Persistent Storage
+	players = new Table<PlayerData>(db, "users");
+	hits    = new Table<Hit>(db, "hits");
+	wars    = new Table<War>(db, "wars");
+	teams   = new Table<Team>(db, "teams");
+
+	// Temporary Storage
+	duels   = new HashSet<Duel>();
         
         this.getServer.getPluginManager().registerEvents(this, this);
         this.saveDefaultConfig();
