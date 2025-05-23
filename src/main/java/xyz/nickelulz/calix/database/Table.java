@@ -5,22 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 import xyz.nickelulz.calix.database.SQLDatabaseManager;
 
-public class Table<T> {
+public class Table<T, ID> {
     private final SQLDatabase db;
     private final String tableName;
-    private final SQLMapper<T> mapper;
+    private final SQLSerializer<T, ID> serializer;
 
     public Table(SQLDatabase db, String tableName, SQLMapper<T> mapper) throws SQLException
     {
-	this.db = db;
-	this.tableName = tableName;
-	this.mapper = mapper;
-
-	try (Statement statement = db.getConnection()
-	                             .createStatement())
-	{
-	    statement.executeUpdate(mapper.getCreateTableSQL());
-	}
+        this.db = db;
+        this.tableName = tableName;
+        this.mapper = mapper;
+        
+        try (Statement statement = db.getConnection()
+             .createStatement())
+            {
+                statement.executeUpdate(mapper.getCreateTableSQL());
+            }
     }
 
     /**
@@ -31,17 +31,17 @@ public class Table<T> {
      */
     public Optional<T> queryOne(String sql, SQLConsumer<PreparedStatement> binder) throws SQLException
     {
-	try (PreparedStatement ps = db.getConnection()
-	                              .prepareStatement(sql))
-	{
-	    binder.accept(ps);
-	    try (ResultSet rs = ps.executeQuery()) {
-		if (rs.next()) {
-		    return Optional.of(mapper.fromResultSet(rs));
-		}
-	    }
-	    return Optional.empty();
-	}
+        try (PreparedStatement ps = db.getConnection()
+             .prepareStatement(sql))
+            {
+                binder.accept(ps);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return Optional.of(mapper.fromResultSet(rs));
+                    }
+                }
+                return Optional.empty();
+            }
     }
 
     /**
@@ -51,17 +51,17 @@ public class Table<T> {
      * @return The result set of all objects matching the query.
      */
     public Set<T> queryAll(String sql)
-	throws SQLException
+        throws SQLException
     {
-	Set<T> result = new HashSet<>();
-	try (PreparedStatement ps = db.getConnection()
-	                              .prepareStatement(sql);
-	     ResultSet rs = ps.executeQuery()) {
-	    while (rs.next()) {
-		result.add(mapper.fromResultSet(rs));
-	    }
-	}
-	return result;
+        Set<T> result = new HashSet<>();
+        try (PreparedStatement ps = db.getConnection()
+             .prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                result.add(mapper.fromResultSet(rs));
+            }
+        }
+        return result;
     }
 
     /**
@@ -70,15 +70,15 @@ public class Table<T> {
      * @param sql The SQL query string to execute
      */
     public void executeUpdate(String sql,
-			      SQLConsumer<PreparedStatement> binder)
-	throws SQLException
+                              SQLConsumer<PreparedStatement> binder)
+        throws SQLException
     {
-	try (PreparedStatement ps = db.getConnection()
-	                              .prepareStatement(sql))
-	{
-	    binder.accept(ps);
-	    ps.executeUpdate();
-	}
+        try (PreparedStatement ps = db.getConnection()
+             .prepareStatement(sql))
+            {
+                binder.accept(ps);
+                ps.executeUpdate();
+            }
     }
 
     /**
@@ -87,10 +87,10 @@ public class Table<T> {
      * @param obj The object to insert into the table
      */
     public void insert(T obj)
-	throws SQLException
+        throws SQLException
     {
-	executeUpdate(mapper.getInsertSQL(),
-		      ps -> mapper.bindInsertParams(ps, obj));
+        executeUpdate(mapper.getInsertSQL(),
+                      ps -> mapper.bindInsertParams(ps, obj));
     }
 
     /**
@@ -99,9 +99,9 @@ public class Table<T> {
      * @return A set of all objects within the table
      */
     public Set<T> getAll()
-	throws SQLException
+        throws SQLException
     {
-	return queryAll("SELECT * FROM " + tableName);
+        return queryAll("SELECT * FROM " + tableName);
     }
 
     /**
@@ -111,11 +111,11 @@ public class Table<T> {
      *
      * @return The located object (or none if not found)
      */
-    public <ID> Optional<T> findById(ID id)
-	throws SQLException
+    public Optional<T> findById(ID id)
+        throws SQLException
     {
-	return queryOne(mapper.getSelectByIdSQL(),
-			ps -> ps.setObject(1, id));
+        return queryOne(mapper.getSelectByIdSQL(),
+                        ps -> ps.setObject(1, id));
     }
 
     /**
@@ -125,16 +125,16 @@ public class Table<T> {
      * @param obj The object to remove.
      */
     public void delete(T obj)
-	throws SQLException
+        throws SQLException
     {
-	executeUpdate(mapper.getDeleteByIdSQL(),
-		      ps -> ps.setObject(1, mapper.getId(obj)));
+        executeUpdate(mapper.getDeleteByIdSQL(),
+                      ps -> ps.setObject(1, mapper.getId(obj)));
     }
 
     public void update(T obj)
-	throws SQLException
+        throws SQLException
     {
-	executeUpdate(mapper.getUpdateSQL(),
-		      ps -> mapper.bindUpdateParams(ps, obj));
+        executeUpdate(mapper.getUpdateSQL(),
+                      ps -> mapper.bindUpdateParams(ps, obj));
     }
 }
